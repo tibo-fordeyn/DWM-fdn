@@ -8,20 +8,19 @@
 ![Alt-tekst](screenshots/geel.png)
 ![Alt-tekst](screenshots/grijs.png)
 
-I feel as though, when designing a perfect system, one should think about privacy and extended minimalism. This translates to using as much libre software as possible, and starting with a very minimal code base. Going forward, it means to extend and have only the features needed, but implementing them in an aesthetic and efficient manner. All while keeping the time trade-off reasonable.
     I use Artix Runit Linux, and started with a base DWM install. I use ST and dmenu application launcher. 
     
     
    Lots of functionality was added. Made things better looking, also writing a lot of scripts piped into dmenu, implemented patches. Then ended up remapping a lot of the keys.
 
-I wrote a script that (mainly just by using wal and some patches) gives you a menu to pick a color, and it completely changes every aspect of your systems color, instantly! Within the same runtime. 
+I wrote a script that (mainly just by using wal and some patches) gives you a menu to pick a color, and it completely changes every aspect of your systems color instantly! Within the same runtime. 
     I'm using the same technique for executing standard commands like emptying your Vim cache and opening some files. 
     There's also a script for quickly mounting and unmounting drives.
     Not all the files relating to these features are in the repo atm.
 
     
 ## efficiency
-Let's talk optimal binds, there's three 'levels' of binds
+There's three 'levels' of binds
 - DWM system binds: super=MODKEY
 - ST meta-terminal binds: alt=MODKEY
 - bash in terminal binds: ctrl=MODKEY
@@ -29,6 +28,7 @@ Let's talk optimal binds, there's three 'levels' of binds
 
 ### DWM binds in config.h
 I put the keys in alphabetic order in the config.h file.
+
 **fundamental movement**
     
     
@@ -100,7 +100,6 @@ e=exit
 
 
 ## Usage
-What it's designed for:
 - take notes for school, vimLaTeX
 - take notes for work, vimwiki-pandoc-markdown
 - managing files easily with LUKS encryption
