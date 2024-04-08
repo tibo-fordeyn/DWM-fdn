@@ -4,9 +4,9 @@
 **My configuration files. Trying to get as close to a "what a computer should be" setup as possible.**
 **At the moment of writing, this is not close to being finished. I've put it on github for myself to easily clone when on a new system, and for others to hopefully take some inspiration :)**
     
-![Alt-tekst](/home/dyntif/dl/dwm-fdn/screenshots/blauw.png)
-![Alt-tekst](/home/dyntif/dl/dwm-fdn/screenshots/geel.png)
-![Alt-tekst](/home/dyntif/dl/dwm-fdn/screenshots/grijs.png)
+![Alt-tekst](screenshots/blauw.png)
+![Alt-tekst](screenshots/geel.png)
+![Alt-tekst](screenshots/grijs.png)
 
 I feel as though, when designing a perfect system, one should think about privacy and extended minimalism. This translates to using as much libre software as possible, and starting with a very minimal code base. Going forward, it means to extend and have only the features needed, but implementing them in an aesthetic and efficient manner. All while keeping the time trade-off reasonable.
     I use Artix Runit Linux, and started with a base DWM install. I use ST and dmenu application launcher. 
