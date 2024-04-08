@@ -1,0 +1,90 @@
+### Settings from original zathurarc ###
+set guioptions none
+set page-padding 1
+set statusbar-h-padding 0
+set statusbar-w-padding 0
+map u scroll half-up-
+map d scroll half-down-
+map D toggle_page_mode
+map r reload
+map R rotate
+map , zoom out
+map m zoom in
+map J full-down
+map K full-up
+map D set "first-page-column 1:1"
+map <C-d> set "first-page-column 1:2"
+set selection-clipboard clipboard
+
+### zathura-pywal ###
+# Allow recolor
+set recolor 'true'
+
+# Don't allow original hue when recoloring
+set recolor-keephue 'false'
+
+# Don't keep original image colors while recoloring
+set recolor-reverse-video 'false'
+
+# Command line completion entries
+set completion-fg '#e0eaed'
+set completion-bg '#101819'
+
+# Command line completion group elements
+set completion-group-fg '#A4BEC4'
+set completion-group-bg '#101819'
+
+# Current command line completion element
+set completion-highlight-fg '#101819'
+set completion-highlight-bg '#e0eaed'
+
+# Default foreground/background color
+set default-bg rgba(16,24,25,0.9)
+
+# Input bar
+set inputbar-fg '#e0eaed'
+set inputbar-bg '#101819'
+
+# Notification
+set notification-fg '#e0eaed'
+set notification-bg '#101819'
+
+# Error notification
+set notification-error-fg '#e0eaed'
+set notification-error-bg '#8EB9C5'
+
+# Warning notification
+set notification-warning-fg '#e0eaed'
+set notification-warning-bg '#8EB9C5'
+
+# Tab - TODO
+# set tabbar-fg
+# set tabbar-bg
+
+# Focused tab - TODO
+# set tabbar-focus-fg
+# set tabbar-focus-bg
+
+# Status bar
+set statusbar-fg '#e0eaed'
+set statusbar-bg '#101819'
+
+# Highlighting parts of the document (e.g. show search results)
+set highlight-color '#A4BEC4'
+set highlight-active-color '#A4BEC4'
+
+# Represent light/dark colors in recoloring mode
+set recolor-lightcolor rgba(0,0,0,0)
+set recolor-darkcolor '#e0eaed'
+
+# 'Loading...' text
+set render-loading-fg '#e0eaed'
+set render-loading-bg '#101819'
+
+# Index mode
+set index-fg '#e0eaed'
+set index-bg '#101819'
+
+# Selected element in index mode
+set index-active-fg '#101819'
+set index-active-bg '#e0eaed'

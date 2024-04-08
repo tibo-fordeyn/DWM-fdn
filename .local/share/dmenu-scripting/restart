@@ -1,0 +1,3 @@
+sudo poweroff # poweroff
+pkill -HUP dwm # restart dwm
+sudo reboot # reboot system

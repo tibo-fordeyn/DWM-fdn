@@ -1,0 +1,24 @@
+------------ notities, school -----------------
+im ~/school/eerste-bach/tweede-sem/elnet/lesnota.tex # economie
+vim ~/school/eerste-bach/tweede-sem/analyse-twee/analyse.tex # analyse
+vim ~/school/eerste-bach/tweede-sem/elnet/lesnota.tex # elektrische netwerken
+vim ~/school/eerste-bach/tweede-sem/elnet/lesnota.tex # natuurkunde
+vim ~/school/eerste-bach/tweede-sem/elnet/lesnota.tex # thermodynamica
+vim ~/school/eerste-bach/tweede-sem/elnet/lesnota.tex # materiaalkunde
+vim ~/school/eerste-bach/tweede-sem/elnet/lesnota.tex # kansrekenen
+
+
+----------- cursussen, school -----------------
+
+
+
+---------------- configs ----------------------
+vim ~/.vim/vimrc # vimrc
+vim ~/.bashrc # bashrc
+vim ~/.local/share/dmenu-scripting/snippets # bookmarks, snippets
+vim ~/.local/share/dmenu-scripting/fsnippets # auto-openen bestanden, fsnippets
+
+
+----------------- acties -----------------------
+rm ~/.cache/vim/swap/* # vim swap swp files verwijderen
+

@@ -1,0 +1,181 @@
+" Setting nocompatible and filetype off before plugins
+set nocompatible
+filetype plugin on
+
+call plug#begin('~/.vim/plugged')
+
+" Plugins
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'vim-scripts/vim-auto-save'
+Plug 'SirVer/ultisnips'
+Plug 'iamcco/markdown-preview.nvim'
+Plug 'honza/vim-snippets'
+Plug 'KeitaNakamura/tex-conceal.vim'
+Plug 'lervag/vimtex'
+Plug 'dylanaraps/wal.vim'
+" Plug 'tmhedberg/SimpylFold'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'arcticicestudio/nord-vim' " Added nord colorscheme
+Plug 'vimwiki/vimwiki'
+Plug 'vim-scripts/vim-spell'
+Plug 'prurigro/vim-markdown-concealed'
+Plug 'jmckiern/vim-shoot', { 'do': '\"./install.py\" geckodriver' }
+Plug 'AlphaTechnolog/pywal.nvim', { 'as': 'pywal'  }
+
+call plug#end()
+
+" Basic Settings
+set smartcase
+set ignorecase
+set encoding=utf-8
+set textwidth=79
+set fileformat=unix
+set incsearch
+set number relativenumber
+set background=dark
+set foldmethod=indent
+set viminfo += "folds"
+au BufWinLeave * mkview
+au BufWinEnter * silent loadview
+
+syntax on
+highlight StatusLine guifg=#050298
+"colorscheme nord " Set colorscheme to nord
+colorscheme wal
+
+
+"if has('spell')
+  "set spell
+  "set spelllang=en_us
+"endif
+"function! SetSpellLang()
+  "let lang = matchstr(&filetype, '^\zs\w\+')
+  "if empty(lang)
+    "let lang = &spelllang
+  "endif
+  "setlocal spelllang=lang
+  "echo "Spelling language set to: " . lang
+"endfunction
+
+" Always show line numbers
+set number
+
+" Highlight the line of the cursor
+set cursorline
+hi CursorLineNr ctermbg=lightblue ctermfg=black cterm=bold
+" Uncomment the line below if you want to try making the cursor line transparent
+" hi CursorLine ctermbg=NONE cterm=NONE
+
+" Set the scroll to keep cursor at top of the screen
+nnoremap j jzz
+nnoremap k kzz
+noremap G Gzz
+
+" Remappings
+let mapleader = ","
+noremap <leader>q :AutoSaveToggle<cr> " Toggle AutoSave
+noremap <leader>ou :source<Space> " General source command
+noremap <leader>e <C-w><C-w>
+noremap <leader>z [s1z=
+noremap <leader>P "+P
+noremap <leader>f :Files<cr>
+noremap <leader>c :cd %:p:h<cr>:pwd<cr>
+noremap <leader><cr> o<Esc>
+noremap <leader>z :wq<CR>
+noremap <leader>h "+p
+noremap <leader>o :put _<CR>j
+nnoremap <leader>r <C-r>
+noremap <leader>p :put! _<CR>
+noremap <space>h <C-w>h
+noremap <space>j <C-w>j
+noremap <space>k <C-w>k
+noremap <space>l <C-w>l
+noremap <down> :resize +2<Cr>
+noremap <up> :resize -2<cr>
+noremap <right> :vertical resize +2<CR>
+noremap <left> :vertical resize -2<CR>
+inoremap qj <Esc>
+vnoremap <leader>f zf
+vnoremap <leader>y "*y :let @+=@*<cr>
+noremap <Leader>k :w !xclip -selection clipboard<CR>:silent! redraw! <CR>
+nnoremap <silent> <Leader>l :call SetSpellLang()<CR>:normal! mz:silent! spell<CR>z
+nmap <leader>1 :bn<cr>
+nmap <leader>2 :bp<cr>
+nmap <leader>5 :call SpellToggle()<cr>
+map <leader>lo :VimtexView<CR>
+map <leader>cl :VimtexCompile<CR>
+map <leader>pi :PlugInstall<CR>
+map <leader>pu :PlugUpdate<CR>
+inoremap ³ <left>
+inoremap ² <right>
+
+" Disable insert of newlines
+set formatoptions-=tc
+
+" Snippets configuration
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsSnippetDirectories=["UltiSnips","Snippets"]
+let g:UltiSnipsEditSplit="vertical"
+
+" Markdown configuration
+" When a vimwiki file is opened, also set the filetype to markdown
+autocmd FileType vimwiki set filetype=vimwiki.markdown
+
+" Tex configuration
+set conceallevel=1
+let g:tex_conceal='abdmg'
+let g:Tex_DefaultTargetFormat='pdf'
+let g:vimtex_view_enabled=1
+let g:vimtex_view_automatic=1
+let g:vimtex_view_general_viewer='zathura'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+let g:vimtex_compiler_latexmk = { 'callback' : 0 }
+" voor mijn vimwiki
+let g:vimwiki_list = [
+\ {
+\   'path': '~/drobot/notes',
+\   'index': 'index',
+\   'syntax':'markdown',
+\   'ext': '.md',
+\   'key': '<Leader>ww',
+\   'auto_export': 0,
+\   'template_path': '~/drobot/index/templates/',
+\   'template_default': 'default',
+\   'template_ext': '.tpl',
+\   'nested_syntaxes': {'python': 'python', 'bash': 'sh'},
+\   'diary_rel_path': 'journal/',
+\   'diary_index': 'index'
+\ },
+\ {
+\   'path': '~/notebooks/',
+\   'index': 'index',
+\   'syntax':'markdown',
+\   'ext': '.md',
+\   'key': '<Leader>wp',
+\   'diary_rel_path': 'journal/',
+\   'diary_index': 'index'
+\ }
+\ ]
+
+" Automatische commando's voor .tex bestanden
+augroup tex
+    autocmd!
+     " VimTeX in continue compilatiemodus
+    autocmd FileType tex VimtexCompile
+    autocmd FileType tex AutoSave
+augroup END
+
+" viminfo locatie
+set viminfo+=n~/.local/state/vim/viminfo
+
