@@ -172,7 +172,7 @@ Obviously this isn't a complete list, but there's a few things I still want to d
 - sc-im spreadsheet editing configuration is not finished yet
 - signal terminal application configs, getting scli to work with wal and xresources
 - There's warnings when I run sudo make install on dwm
-- In general, the code and scripts used are sometimes bloated; I should go over all files and try to remove all bloat. 
+- In general, the code and scripts used are sometimes bloated; I should go over all files and try to remove all bloat.   
 - a local music application
 
 - luks scripts need to be added, and my passmenu need to be included
