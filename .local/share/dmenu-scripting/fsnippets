@@ -1,0 +1,31 @@
+------------ notities, school -----------------
+vim ~/school/tweede-bach/eerste-sem/analyse-III/nota/notas-ana.tex # analyse III
+vim ~/school/tweede-bach/eerste-sem/II-mechanica/nota/notas-mech.tex # II mechanica 
+vim ~/school/tweede-bach/eerste-sem/informatie/nota/notas-inform.tex # informatie
+vim ~/school/tweede-bach/eerste-sem/mechanica-I/nota/notas-mech.tex # mechanica I
+
+vim ~/school/tweede-bach/eerste-sem/economie/nota/economie-gevat.tex # economie
+
+
+----------- cursussen, school -----------------
+zathura ~/school/tweede-bach/eerste-sem/analyse-III/cursus/ana-cursus.pdf # analyse, cursus
+zathura ~/school/tweede-bach/eerste-sem/II-mechanica/cursus/Cursus_2024.pdf # Mechanica II, cursus
+zathura ~/school/tweede-bach/eerste-sem/informatie/cursus/cursus.pdf # Informatie, cursus
+zathura ~/school/tweede-bach/eerste-sem/mechanica-I/cursus/cursus-sem1.pdf # I Mechanica, cursus
+
+
+---------------- configs ----------------------
+vim ~/.vim/vimrc # vimrc
+vim ~/.bashrc # bashrc
+vim ~/suckless/dwm/config.h # dwm config
+vim ~/.local/share/dmenu-scripting/snippets # bookmarks, snippets
+vim ~/.local/share/dmenu-scripting/fsnippets # auto-openen bestanden, fsnippets
+
+
+----------------- acties -----------------------
+rm ~/.cache/vim/swap/* # vim swap swp files verwijderen
+zathura-pywal # zathura-pywal 0
+zathura-pywal -a 0.9 # zathura-pywal .9
+zathura-pywal -a 0.8 # zathura-pywal .8
+zathura-pywal -a 0.7 # zathura-pywal .7
+

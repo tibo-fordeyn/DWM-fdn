@@ -1,0 +1,11 @@
+je gaat sowieso al deze directory wat beter moeten ordenen 
+basis functionaliteiten, restart functionaliteiten
+
+en ik denk eraan om scripts te schrijven die het themaveranderen ondersteunen en die dan hier te schrijven ofzo, en alle dmenu dingen hier ook te zetten
+bijvoorbeeld je kunt een script schrijven dat wordt geactiveerd wanneer er van thema wordt veranderd, en dit script zou dan bij elke open terminal zorgen dat deze opnieuw wordt geopend, zathura opnieuw openen, ...
+vergeet niet om ookn og eens iets te maken zodat je een signaal uitzendt om de kleuren van je led lichten te veranderen.
+misschien kun je zelfs iets maken zodat wanneer je de helderheid van je scherm verlaagt, de helderheid van de lichten ook verlagen? Zou mega cool zijn.
+
+
+maak een aparte map met bestande zoals (huidige volume, huidige helderheid)
+je zou hiermee met dunst kunnen weergeven hoe het zit! bijvoorbeeld van de helderheid dat kun je ook met dunst weergevven.

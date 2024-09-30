@@ -1,0 +1,4 @@
+sudo poweroff # poweroff, uitzetten
+sudo zzz # slapen
+pkill -HUP dwm # restart dwm
+sudo reboot # reboot system

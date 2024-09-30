@@ -1,0 +1,500 @@
+cd .vim/extra/
+v mappings.vim 
+e
+rm *
+e
+e
+r
+e
+r
+r
+e
+ranger /home/dyntif/school/current-subject
+v .config/ranger/rc.conf 
+e
+rm *
+e
+ranger /home/dyntif/school/current-subject
+e
+r
+e
+v .bashrc 
+source .bashrc 
+r
+clear
+e
+r
+ranger /home/dyntif/school/current-subject
+e
+mv vatting/ nota
+e
+mkdir nota
+e
+cd scheikunde/
+mkdir nota
+e
+ranger /home/dyntif/school/current-subject
+e
+la
+cd .vim/UltiSnips/
+clear
+la
+v tex.snippets 
+clear
+la
+v oud.txt 
+cat copysnips.py 
+v markdown.snippets 
+rm copysnips.py castel.txt 
+v backup-md 
+clear
+la
+cp tex.snippets verouderd.txt
+v tex.snippets 
+v verouderd.txt 
+v tex.snippets 
+cd ~
+clear
+la
+la .config/inkscape-figures/
+xclip -selection clipboard -o > .config/inkscape-figures/config.json
+cat .config/inkscape-figures/
+cat .config/inkscape-figures/config.json 
+ v .vim/vimrc 
+clear
+cd school/current-subject/nota/
+lla
+la
+inkscape-figures watch
+which inkscape-figures
+clear
+ranger /home/dyntif/school/current-subject
+e
+e
+cd school/
+clear
+la
+cd tex/inputfiles/
+clear
+la
+v preamble.tex
+cd ~
+clear
+la
+cd school/
+cb
+
+clear
+sudo pip3 install inkscape-figures
+clear
+la
+sudo pacman -S python-inkscape-figures
+clear
+pip install inkscape-figures==1.0.1
+sudo -H pip3 install inkscape-figures
+sudo -H pip3 --user install inkscape-figures
+sudo -H pip3 install --user inkscape-figures
+clear
+sudo pacman -S python-pipx
+sudo pacman -Syu
+sudo pacman -S egl-gbm
+sudo pacman -R nvidia-utils
+lspci -k | grep -A 2 -E "(VGA|3D)"
+lsmod | grep nvidia
+sudo pacman -Rns nvidia-utils nvidia nvidia-settings
+mhwd -li
+clear
+sudo pacman -Syu
+clear
+pipx install inkscape-figures
+inkscape-figures --help
+clear
+la
+cd sch
+cd school/
+clear
+la
+v ~/.vim/extra/mappings.vim 
+e
+e
+clear
+la
+rm *
+e
+ranger /home/dyntif/school/current-subject
+clear
+la
+clear
+la
+v economie-gevat.tex
+v .vim/extra/mappings.vim 
+v suckless/dwm/config.h
+v suckless/dwm/config.h
+cd ~
+clear
+la
+v .vim/vimrc 
+la
+cd .local/bin/
+clear
+la
+cb
+cd share/pipx/venvs/inkscape-figures/
+clear
+la
+la bin
+clear
+la
+la include/
+cd bin
+clear
+la
+cd inkscape-figures 
+clear
+la
+v inkscape-figures 
+cat nosetests
+grep -rnw '/path/to/inkscape-figures' -e 'rofi'
+grep -rnw '.' -e 'rofi'
+cb
+grep -rnw '.' -e 'rofi'
+la
+cd lib/python3.12/site-packages/inkscapefigures/
+clear
+la
+v rofi.py 
+xclip -selection clipboard -o > rofi.py 
+sudo pacman -S fzf
+clear
+la
+./rofi.py
+sudo ./rofi.py 
+p rofi.py 
+p __init__.py 
+p main.py 
+clear
+la
+p picker.py 
+p picker.py 
+v picker.py 
+v __init__.py 
+v main.py 
+python3 -m inkscapefigures
+pipx install daemonize --include-deps
+v main.py 
+p main.py 
+v main.py 
+p main.py 
+clear
+la
+v main.py 
+pipx inject inkscape-figures daemonize
+p main.py 
+htop
+clear
+clear
+la
+v rofi.py 
+v main.py 
+v config.py 
+v clipboard.py 
+v config.py 
+v constants.py 
+r
+cd .local/bin/
+clear
+la
+cd inkscape-figures 
+clear
+la
+cb
+cd share/inkscape-shortcut-manager/
+clear
+la
+p main.py 
+e
+v .vim/extra/mappings.vim 
+e
+r .local/share/pipx/venvs/inkscape-figures/lib/python3.12/site-packages/inkscapefigures/
+e
+ranger /home/dyntif/school/current-subject
+r
+clear
+cd /lib/clear
+lclear
+clear
+la
+ranger .local/
+ranger .local/share/pipx/venvs/
+e
+la /tmp/
+clear
+v .vim/extra/mappings.vim 
+inkscape-figures --help
+pipx uninstall inkscape-figures
+inkscape-figures --version
+rm -rf ~/.local/bin/inkscape-figures
+rm -rf ~/.local/share/pipx/venvs/inkscape-figures
+pipx install inkscape-figures
+inkscape-figures --version
+inkscape-figures --help
+clear
+ranger /home/dyntif/school/current-subject
+cd school/current-subject/nota/
+inkscape-figures watch
+ranger /home/dyntif/school/current-subject
+pdflatex --version
+clear
+v ~/suckless/dwm/config.h
+clear
+la
+inkscape-figures create 'nnn'
+la
+sudo pacman -S xdg-desktop-portal xdg-desktop-portal-gtk
+clear
+inkscape-figures create 'nog'
+la
+rm nnn.svg nog.svg zzz.svg 
+clear
+sudo pacman -Syu
+clear
+inkscape-figures create 'nog'
+sudo sv restart dbus
+sudo sv restart xdg-desktop-portal
+sudo sv restart xdg-desktop-portal-gtk
+cd school/current-subject
+cd nota/figures/
+clear
+la
+inkscape-figures create "test"
+la
+clear
+la
+r
+e
+clear
+la
+inkscape -D -z --file=test.svg --export-pdf=output.pdf --export-latex
+la
+inkscape-figures create "nww"
+la
+r
+clear
+la
+inkscape-figures watch --verbose > debug_output.log 2>&1
+inkscape-figures create "nww"
+la
+cat debug_output.log 
+rm debug_output.log 
+sudo pacman -S inkscape
+clear
+la
+rm nww.svg 
+la
+clear
+inkscape-figures edit "afb.svg"
+inkscape-figures edit "afb"
+inkscape-figures edit 
+pipx uninstall inkscape-figures
+rm -rf ~/.config/inkscape-figures
+pipx install inkscape-figures
+inkscape-figures edit 
+inkscape-figures create "neww"
+clear
+la
+pdf2svg neww.svg 
+pdf2svg afb.pdf nww.svg
+clear
+la
+rm nww.svg 
+which inkscape-figure
+which inkscape-figures
+clear
+la
+rm neww.svg 
+which inkscape-figures
+cd ~
+clear
+la
+pipx uninstall inkscape-figures
+which inkscape-figures
+r
+ranger /home/dyntif/school/current-subject
+e
+clear
+la
+p main.py 
+clear
+pipx install inkscape-figures
+cd ~/school/current-subject
+inkscape-figures watch
+cd nota/figures/
+clear
+l
+la
+inkscape-figures create 'tit'
+la
+clear
+la
+cd ~
+clear
+la
+ranger .local/share/pipx/venvs/inkscape-figures/lib/python3.12/site-packages/
+cd .vim/extra/mappings.vim 
+v .vim/extra/mappings.vim 
+e
+v suckless/dwm/config.h
+e
+cd school/current-subject/nota/figures/
+clear
+la
+la
+cb
+cb
+inkscape-figures watch
+e
+e
+xclip -selection clipboard -o > config.py
+r
+la inkscapefigures/
+pwd
+clear
+la
+cd inkscapefigures/
+clear
+la
+v rofi.py 
+xclip -selection clipboard -o > rofi.py 
+v rofi.py 
+v picker.py 
+v rofi.py 
+v picker.py 
+xclip -selection clipboard -o > picker.py 
+v picker.py 
+clear
+v rofi.py 
+v main.py 
+xclip -selection clipboard -o > main.py 
+cd ~
+clear
+clear
+a
+v .vim/vimrc 
+cd .vim/extra/
+v ma
+v mappings.vim 
+e
+ranger /home/dyntif/school/current-subject
+r .local/
+cd .local/share/pipx/venvs/inkscape-figures/lib/python3.12/site-packages/
+clear
+lla
+la
+r
+e
+clear
+la
+p main.py 
+clear
+cb
+cd ~
+clear
+la
+la .config/inkscape-shortcut-manager/
+ranger .config/inkscape-shortcut-manager/
+cd .config/inkscape-shortcut-manager/
+clear
+la
+ranger 
+e
+rm -rf .config/inkscape-shortcut-manager/
+e
+ranger .config/inkscape-shortcut-manager/
+e
+e
+cd suckless/dwm
+clear
+la
+v config.h
+cd .local/share/inkscape-shortcut-manager/
+clear
+la
+r examples/
+clear
+la
+rm -rf inkscape-shortcut-manager/
+git clone https://github.com/gillescastel/inkscape-shortcut-manager.git
+cd inkscape-shortcut-manager/
+clear
+l
+la
+p main.py 
+clear
+la
+rm -rf .git* README.md LICENSE 
+clear
+la
+v vim.py 
+p main.py 
+clear
+la
+v clipboard.py 
+xclip -selection clipboard -o > clipboard.py 
+v config.py 
+xclip -selection clipboard -o > config.py 
+v config.py 
+cat constants.py | xclip -selection clipboard -i
+xclip -selection clipboard -o > config.py 
+cat constants.py | xclip -selection clipboard -i
+cat constants.py 
+clear
+la
+cat main.py | xclip -selection clipboard -i
+v main.py 
+cat normal.py | xclip -selection clipboard -i
+v normal.py 
+cat text.py | xclip -selection clipboard -i
+xclip -selection clipboard -o > text.py 
+cat vim.py | xclip -selection clipboard -i
+v vim.py 
+xclip -selection clipboard -o > vim.py 
+cat rofi.py | xclip -selection clipboard -i
+xclip -selection clipboard -o > rofi.py 
+clear
+la
+xclip -selection clipboard -o > rofi.py 
+p main.py 
+clear
+la
+la __pycache__/
+cb
+cd inkscape-shortcut-manager/
+clear
+la
+mkdir ffweg
+mv example* ffweg/
+clear
+la
+p main.py 
+p main.py 
+la .config/inkscape-shortcut-manager/
+cd .config/inkscape-shortcut-manager/
+r
+ranger /home/dyntif/school/current-subject
+ranger /home/dyntif/school/current-subject
+e
+no
+e
+no
+v
+e
+la dl/notebooks/
+e
+ranger /home/dyntif/school/current-subject
+e
+ranger /home/dyntif/school/current-subject
+e
+ranger /home/dyntif/school/current-subject
+e
+xclip -selection clipboard -o > .local/bin/manage-chapters.sh 
+e
