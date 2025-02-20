@@ -1,0 +1,978 @@
+global !p
+import re
+def math_mode(snip):
+    line = snip.buffer[snip.line][:snip.column]
+    return len(re.findall(r'\$', line)) % 2 == 1 or len(re.findall(r'\\\[', line)) - len(re.findall(r'\\\]', line)) == 1
+endglobal
+
+######### TEMPLATE
+snippet metaaa "Document metadata" bA
+---
+title: "${1:Document Title}"
+author: "Tibo Fordeyn"
+date: "${2:`date +%D`}"
+institute: "drobot"
+subject: "${4:Document-Subject}"
+---
+endsnippet
+
+###########################
+# Sections and Paragraphs #
+###########################
+snippet sec "Section" b
+# ${1:Section Name} #
+$0
+endsnippet
+
+snippet ssec "Sub Section" b
+## ${1:Section Name} ##
+$0
+endsnippet
+
+snippet sssec "SubSub Section" b
+### ${1:Section Name} ###
+$0
+endsnippet
+
+snippet par "Paragraph" b
+#### ${1:Paragraph Name} ####
+$0
+endsnippet
+
+snippet spar "Paragraph" b
+##### ${1:Paragraph Name} #####
+$0
+endsnippet
+
+###################
+# Text formatting #
+###################
+
+snippet * "italics"
+*${1:${VISUAL}}*$0
+endsnippet
+
+snippet ** "bold"
+**${1:${VISUAL}}**$0
+endsnippet
+
+snippet *** "bold italics"
+***${1:${VISUAL}}***$0
+endsnippet
+
+snippet /* "Comment"
+<!-- ${1:${VISUAL}} -->$0
+endsnippet
+
+################
+# Common stuff #
+################
+snippet link "Link to something"
+[${1:${VISUAL:Text}}](${3:https://${2:www.url.com}})$0
+endsnippet
+
+snippet img "Image"
+![${1:pic alt}](${2:path}${3/.+/ "/}${3:opt title}${3/.+/"/})$0
+endsnippet
+
+snippet ilc "Inline Code" i
+\`${1:${VISUAL}}\`$0
+endsnippet
+
+snippet cbl "Codeblock" b
+\`\`\`$1
+${2:${VISUAL}}
+\`\`\`
+$0
+endsnippet
+
+snippet refl "Reference Link"
+[${1:${VISUAL:Text}}][${2:id}]$0
+
+[$2]:${4:https://${3:www.url.com}} "${5:$4}"
+endsnippet
+
+snippet fnt "Footnote"
+[^${1:${VISUAL:Footnote}}]$0
+
+[^$1]:${2:Text}
+endsnippet
+
+snippet detail "Disclosure"
+<details${3: open=""}>
+  ${1:<summary>${2}</summary>}$0
+</details>
+endsnippet
+
+post_jump "create_table(snip)"
+snippet "tb([1-9][1-9])" "Fancy table" br
+`!p snip.rv = match.group(1)`
+endsnippet
+
+# vim:ft=snippets:
+
+
+
+
+
+ ########################################################
+
+snippet kadr "Box for important conclusions" iA
+<div style="border: 2px solid #006a69; padding: 10px; margin-bottom: 1em; background-color: #073642; color: #839496;">
+
+${0:Hier is de inhoud van je kader.}
+
+</div>
+endsnippet
+
+snippet dm "Display Math" iA
+\[
+${0:wiskundige formule hier}
+\]
+endsnippet
+
+snippet mk "Inline Math" iA
+$${0:wiskundige formule hier}$
+endsnippet
+
+snippet fgg "Image environment" bA
+![${1:alternatieve tekst}](${2:/pad/naar/afbeelding})
+$0
+endsnippet
+
+context math_mode
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d    ))*)/' "symbol frac" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+context math_mode
+snippet tt "" i
+\text{$1} $2 
+endsnippet
+context math_mode
+snippet plts "spatie" iA
+\,\,\, $1 
+endsnippet
+context math_mode
+snippet sub "subscript" iA
+_{$1} $2 
+endsnippet
+context math_mode
+snippet invs "inverse" iA
+^{-1} 
+endsnippet
+context math_mode
+snippet sam "compisitie of samenstelling" iA
+\circ 
+endsnippet
+context math_mode
+snippet cosi "" iA
+\cos{\big( $1 \big)} $2 
+endsnippet
+context math_mode
+snippet sinu "" iA
+\sin{\big( $1 \big)} $2 
+endsnippet
+context math_mode
+snippet seca "" iA
+\sec{\big( $1 \big)} $2 
+endsnippet
+context math_mode
+snippet csca "" iA
+\csc{\big( $1 \big)} $2 
+endsnippet
+context math_mode
+snippet tang "" iA
+\tan{\big( $1 \big)}$2 
+endsnippet
+context math_mode
+snippet expo "" iA
+\exp{($1)} $2 
+endsnippet
+context math_mode
+snippet cosh "" iA
+\cosh{\big( $1 \big)}$2 
+endsnippet
+context math_mode
+snippet sinh "" iA
+\sinh{\big( $1 \big)}$2 
+endsnippet
+context math_mode
+snippet tanh "" iA
+\tanh{\big( $1 \big)}$2 
+endsnippet
+context math_mode
+snippet coth "" iA
+\coth{\big( $1 \big)}$2 
+endsnippet
+context math_mode
+snippet abs "" iA
+|$1| $2 
+endsnippet
+context math_mode
+snippet maxi "" iA
+\max{$1}$2 
+endsnippet
+context math_mode
+snippet mini "" iA
+\min{$1}$2 
+endsnippet
+context math_mode
+snippet log "" iA
+\log{$1}$2 
+endsnippet
+context math_mode
+snippet arkcos "" iA
+\arccos{\big( $1 \big)}$2 
+endsnippet
+context math_mode
+snippet arksin "" iA
+\arcsin{\big( $1 \big)}$2 
+endsnippet
+context math_mode
+snippet arktan "" iA
+\arctan{\big( $1 \big)}$2 
+endsnippet
+context math_mode
+snippet arkcsc "" iA
+\arccsc{\big( $1 \big)}$2 
+endsnippet
+context math_mode
+snippet arksec "" iA
+\arcsec{$1}$2 
+endsnippet
+context math_mode
+snippet arccosh "" iA
+\arccosh{\big( $1 \big)}$2 
+endsnippet
+context math_mode
+snippet arcsinh "" iA
+\arcsinh{\big( $1 \big)}$2 
+endsnippet
+context math_mode
+snippet arctanh "" iA
+\arctanh{\big( $1 \big)}$2 
+endsnippet
+context math_mode
+snippet arkcot "" iA
+\arccot{\big( $1 \big)} $2 
+endsnippet
+context math_mode
+snippet arccoth "" iA
+\arccoth{\big( $1 \big)} $2 
+endsnippet
+context math_mode
+snippet nalo "" iA
+\ln{\big( $1 \big)}$2 
+endsnippet
+context math_mode
+snippet combi "" iA
+\{$1 \choose $2} $3 
+endsnippet
+context math_mode
+snippet "hat" "hat" riA
+\hat{${1:${VISUAL}}}$2 
+endsnippet
+context math_mode
+snippet "tilde" "hat" riA
+\tilde{${1:${VISUAL}}}$2 
+endsnippet
+context math_mode
+snippet SI "SI" iA
+\SI{$1}{$2} 
+endsnippet
+context math_mode
+snippet case "cases" wA
+\begin{cases}
+	$1
+\end{cases} 
+endsnippet
+context math_mode
+snippet inn "in " iA
+\in 
+endsnippet
+context "math()"
+snippet cc "subset" iA
+\subset 
+endsnippet
+context math_mode
+snippet notin "not in " iA
+\notin 
+endsnippet
+context math_mode
+snippet evr "~" iA
+\sim 
+endsnippet
+context math_mode
+snippet << "<<" iA
+\ll 
+endsnippet
+context math_mode
+snippet >> ">>" iA
+\gg 
+endsnippet
+context math_mode
+snippet dint "integral" wA
+\int_{${1:-\infty}}^{${2:+ \infty}} ${3:${VISUAL}} $0 
+endsnippet
+context math_mode
+snippet uint "" iA
+\int $1 
+endsnippet
+context math_mode
+snippet norm "norm" iA
+||$1|| $2 
+endsnippet
+context math_mode
+snippet xx "cross" iA
+\times 
+endsnippet
+context math_mode
+snippet rdom "cross" iA
+\text{dom }[$1;$2[ $3 
+endsnippet
+context math_mode
+snippet ldom "cross" iA
+\text{dom } ]$1; $2] $3 
+endsnippet
+context math_mode
+snippet dom "cross" iA
+\text{dom } [$1; $2] $3 
+endsnippet
+context math_mode
+snippet rber "cross" iA
+\text{ber }[$1;$2[ $3 
+endsnippet
+context math_mode
+snippet lber "cross" iA
+\text{ber } ]$1; $2] $3 
+endsnippet
+context math_mode
+snippet ber "cross" iA
+\text{ber } [$1; $2] $3 
+endsnippet
+context math_mode
+snippet <= "leq" iA
+\le 
+endsnippet
+context math_mode
+snippet >= "geq" iA
+\ge 
+endsnippet
+context math_mode
+snippet rij "mrij" i
+(${1:x}_${2:n})_{${3:$2}\\in${4:\\N}}$0 
+endsnippet
+context math_mode
+snippet nabl "nabla" iA
+\nabla 
+endsnippet
+context math_mode
+snippet pif "\infty" iA
++ \infty 
+endsnippet
+context math_mode
+snippet mif "\infty" iA
+- \infty 
+endsnippet
+context math_mode
+snippet iftt "\infty" iA
+\infty 
+endsnippet
+context math_mode
+snippet == "equals" iA
+&= $1 
+endsnippet
+context math_mode
+snippet != "equals" iA
+\neq 
+endsnippet
+context math_mode
+snippet equi "" iA
+\equiv 
+endsnippet
+context math_mode
+snippet dz "" i
+\text{dz}  
+endsnippet
+context math_mode
+snippet dy "" i
+\text{dy}  
+endsnippet
+context math_mode
+snippet dx "" i
+\text{dx}  
+endsnippet
+context math_mode
+snippet conj "conjugate" iA
+\overline{$1}$0 
+endsnippet
+context math_mode
+snippet lim "limit" w
+\lim_{${1:n} \to ${2:\infty}}  
+endsnippet
+context math_mode
+snippet limsu "limsup" wA
+\limsup_{${1:n} \to ${2:\infty}} $3 
+endsnippet
+context math_mode
+snippet vec "vector" iA
+\vec{${1:v}} $2 
+endsnippet
+context math_mode
+snippet gve "vector" iA
+\overrightarrow{${1:v}} $2 
+endsnippet
+context math_mode
+snippet ive "vector" iA
+\overleftarrow{${1:v}} $2 
+endsnippet
+context math_mode
+snippet uni "vector" iA
+\cup 
+endsnippet
+context math_mode
+snippet gruni "vector" iA
+\bigcup 
+endsnippet
+context math_mode
+snippet doorsn "vector" iA
+\cap 
+endsnippet
+context math_mode
+snippet grdoorsn "vector" iA
+\bigcap 
+endsnippet
+context math_mode
+snippet off "vector" iA
+\vee 
+endsnippet
+context math_mode
+snippet enn "vector" iA
+\wedge 
+endsnippet
+context math_mode
+snippet dlv "vector" iA
+\subset 
+endsnippet
+context math_mode
+snippet dlv "vector" iA
+\subseteq 
+endsnippet
+context math_mode
+snippet dubint "vector" iA
+\iint  
+endsnippet
+context math_mode
+snippet tripint "vector" iA
+\iiint  
+endsnippet
+context math_mode
+snippet sqrt "\sqrt{}" iA
+\sqrt{${1:${VISUAL}}} $2 
+endsnippet
+context math_mode
+snippet csq "\sqrt{}" iA
+\sqrt[3]{${1:${VISUAL}}} $2 
+endsnippet
+context math_mode
+snippet tsq "\sqrt{}" iA
+\sqrt[$1]{${2:${VISUAL}}} $3 
+endsnippet
+context math_mode
+snippet sr "^2" iA
+^2 
+endsnippet
+context math_mode
+snippet cb "^3" iA
+^3 
+endsnippet
+context math_mode
+snippet td "to the ... power" iA
+^{$1}$0 
+endsnippet
+context math_mode
+snippet rd "to the ... derrivative" i
+^{($1)}$0 
+endsnippet
+context math_mode
+snippet pmm "plus minus" iA
+\pm $1 
+endsnippet
+context math_mode
+snippet // "Fraction" iA
+\\frac{$1}{$2}$0 
+endsnippet
+context math_mode
+snippet iff "iff" Ai
+\iff 
+endsnippet
+context math_mode
+snippet conv "" iA
+\ast 
+endsnippet
+context math_mode
+snippet four "" iA
+\mathscr{F} \big[${1:f(t)}\big](\omega) $2 
+endsnippet
+context math_mode
+snippet ffou "" iA
+\mathscr{F} \big[${1:f(t)}\big](\omega) :&= \int_{- \infty> 
+endsnippet
+context math_mode
+snippet lap "" iA
+\mathscr{L} \big[${1:f(t)}\big] &= $2 
+endsnippet
+context math_mode
+snippet fla "" iA
+\mathscr{L} \big[${1:f(t)}\big] &= \int_{0}^{+\infty}  ${2:f(t)} \cdot \exp{(-st)} dt $3 
+endsnippet
+context math_mode
+snippet ggd "" i
+\text{ggd}($1) $2 
+endsnippet
+context math_mode
+snippet kgv "" i
+\text{kgv}($1) $2 
+endsnippet
+context math_mode
+snippet ovrr "" i
+\overset{$1}{$2} $3 
+endsnippet
+context math_mode
+snippet det "" i
+\text{det} \big( $1 \big) $2
+endsnippet
+context math_mode
+snippet detee "normal matrix" iA
+\begin{vmatrix}
+	$1 
+\end{vmatrix} $2
+endsnippet
+context math_mode
+snippet dettw "normal matrix" iA
+\begin{vmatrix}
+	$1 & $2 \\\
+	$3 & $4 
+\end{vmatrix} $7
+endsnippet
+context math_mode
+snippet detdr "normal matrix" iA
+\begin{vmatrix}
+	$1 & $2 & $3\\\
+	$4 & $5 & $6\\\
+	$7 & $8 & $9
+\end{vmatrix} $10
+endsnippet
+context math_mode
+snippet detvi "normal matrix" iA
+\begin{vmatrix}
+	$1 & $2 & $3 & $4\\\
+	$5 & $6 & $7 & $8\\\
+	$9 & $10 & $11 & $12 \\\
+	$13 & $14 & $15 & $16
+\end{vmatrix} $17
+endsnippet
+context math_mode
+snippet eeee "normal matrix" iA
+\begin{pmatrix}
+	$1 
+\end{pmatrix} $2
+endsnippet
+context math_mode
+snippet eetw "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 
+\end{pmatrix} $3
+endsnippet
+context math_mode
+snippet twee "normal matrix" iA
+\begin{pmatrix}
+	$1 \\\
+	$2 
+\end{pmatrix} $3
+endsnippet
+context math_mode
+snippet eedr "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3 
+\end{pmatrix} $4
+endsnippet
+context math_mode
+snippet dree "normal matrix" iA
+\begin{pmatrix}
+	$1  \\\
+	$2  \\\
+	$3
+\end{pmatrix} $4
+endsnippet
+context math_mode
+snippet viee "normal matrix" iA
+\begin{pmatrix}
+	$1  \\\
+	$2  \\\
+	$3  \\\
+	$4  
+\end{pmatrix} $5
+endsnippet
+context math_mode
+snippet eevi "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 $3 $4 
+\end{pmatrix} $5
+endsnippet
+context math_mode
+snippet twtw "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 \\\
+	$3 & $4 
+\end{pmatrix} $7
+endsnippet
+context math_mode
+snippet twdr "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3 \\\
+	$4 & $5 & $6 
+\end{pmatrix} $7
+endsnippet
+context math_mode
+snippet drtw "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 \\\
+	$3 & $4 \\\
+	$5 & $6 
+\end{pmatrix} $7
+endsnippet
+context math_mode
+snippet vitw "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 \\\
+	$3 & $4 \\\
+	$5 & $6 \\\
+	$7 & $8
+\end{pmatrix} $9
+endsnippet
+context math_mode
+snippet twvi "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3 & $4 \\\
+	$5 & $6 & $7 & $8
+\end{pmatrix} $9
+endsnippet
+context math_mode
+snippet drdr "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3\\\
+	$4 & $5 & $6\\\
+	$7 & $8 & $9
+\end{pmatrix} $10
+endsnippet
+context math_mode
+snippet drvi "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3 & $4\\\
+	$5 & $6 & $7 & $8\\\
+	$9 & $10 & $11 & $12
+\end{pmatrix} $13
+endsnippet
+context math_mode
+snippet vidr "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3\\\
+	$4 & $5 & $6\\\
+	$7 & $8 & $9 \\\
+	$10 & $11 & $12
+\end{pmatrix} $13
+endsnippet
+context math_mode
+snippet vivi "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3 & $4\\\
+	$5 & $6 & $7 & $8\\\
+	$9 & $10 & $11 & $12 \\\
+	$13 & $14 & $15 & $16
+\end{pmatrix} $17
+endsnippet
+context math_mode
+snippet ihat "" iA
+\hat{\ihat} 
+endsnippet
+context math_mode
+snippet jhat "" iA
+\hat{\jhat} 
+endsnippet
+context math_mode
+snippet khat "" iA
+\hat{k}  
+endsnippet
+context math_mode
+snippet gam "" iA
+\gamma 
+endsnippet
+context math_mode
+snippet gradi "" iA
+\nabla
+endsnippet
+context math_mode
+snippet toeg "" iA
+\overline{$1} $2
+endsnippet
+context math_mode
+snippet Gam "" iA
+\Gamma 
+endsnippet
+context math_mode
+snippet sigg "" iA
+\sigma 
+endsnippet
+context math_mode
+snippet delt "" iA
+\delta 
+endsnippet
+context math_mode
+snippet Delt "" iA
+\Delta 
+endsnippet
+context math_mode
+snippet epp "" iA
+\epsilon 
+endsnippet
+context math_mode
+snippet Epp "" iA
+\Epsilon 
+endsnippet
+context math_mode
+snippet pii "" iA
+\pi 
+endsnippet
+context math_mode
+snippet Phii "" iA
+\Phi 
+endsnippet
+context math_mode
+snippet thet "" iA
+\theta 
+endsnippet
+context math_mode
+snippet Thet "" iA
+\Theta 
+endsnippet
+context math_mode
+snippet alph "" iA
+\alpha 
+endsnippet
+context math_mode
+snippet bett "" iA
+\beta 
+endsnippet
+context math_mode
+snippet rhoo "" iA
+\rho 
+endsnippet
+context math_mode
+snippet Rhoo "" iA
+\Rho 
+endsnippet
+context math_mode
+snippet lambd "" iA
+\lambda 
+endsnippet
+context math_mode
+snippet omeg "" iA
+\omega 
+endsnippet
+context math_mode
+snippet Omeg "" iA
+\Omega 
+endsnippet
+context math_mode
+snippet psi "" iA
+\psi 
+endsnippet
+context math_mode
+snippet muu "" iA
+\mu 
+endsnippet
+context math_mode
+snippet Muu "" iA
+\Mu 
+endsnippet
+context math_mode
+snippet tau "" iA
+\tau 
+endsnippet
+context math_mode
+snippet Tau "" iA
+\Tau 
+endsnippet
+context math_mode
+snippet zett "" iA
+\zeta 
+endsnippet
+context math_mode
+snippet antl "" iA
+\# 
+endsnippet
+context math_mode
+snippet zondr "setminus" iA
+\setminus 
+endsnippet
+context math_mode
+snippet lra "leftrightarrow" iA
+\leftrightarrow 
+endsnippet
+context math_mode
+snippet !> "mapsto" iA
+\mapsto 
+endsnippet
+context math_mode
+snippet too "to" iA
+\to 
+endsnippet
+context math_mode
+snippet lll "l" iA
+\ell 
+endsnippet
+context math_mode
+snippet xnn "xn" iA
+x_{n} 
+endsnippet
+context math_mode
+snippet ynn "yn" iA
+y_{n} 
+endsnippet
+context math_mode
+snippet ctil "ctilde" iA
+\widetilde{C} $1 
+endsnippet
+context math_mode
+snippet atil "ctilde" iA
+\widetilde{A} $1 
+endsnippet
+context math_mode
+snippet btil "ctilde" iA
+\widetilde{B} $1 
+endsnippet
+context math_mode
+snippet cov "overline" iA
+\overline{C} 
+endsnippet
+context math_mode
+snippet bov "overline" iA
+\overline{B} 
+endsnippet
+context math_mode
+snippet aov "overline" iA
+\overline{A} 
+endsnippet
+context math_mode
+snippet xii "xi" iA
+x_{i} 
+endsnippet
+context math_mode
+snippet yii "yi" iA
+y_{i} 
+endsnippet
+context math_mode
+snippet sun "sub 0" iA
+_{0} $1 
+endsnippet
+context math_mode
+snippet sue "sub 1" iA
+_{1} $1 
+endsnippet
+context math_mode
+snippet sut "sub 1" iA
+_{2} $1 
+endsnippet
+context math_mode
+snippet sud "sub 3" iA
+_{3} $1 
+endsnippet
+context math_mode
+snippet ledg "emptyset" iA
+\O 
+endsnippet
+context math_mode
+snippet CC "" iA
+\mathbb{C} 
+endsnippet
+context math_mode
+snippet QQ "Q" iA
+\mathbb{Q} 
+endsnippet
+context math_mode
+snippet qom "qom" iA
+\mathbb{Q}_{0}^{-} 
+endsnippet
+context math_mode
+snippet qop "qop" iA
+\mathbb{Q}_{0}^{+} 
+endsnippet
+context math_mode
+snippet qp "qp" iA
+\mathbb{Q}^{+} 
+endsnippet
+context math_mode
+snippet qm "qm" iA
+\mathbb{Q}^{-} 
+endsnippet
+context math_mode
+snippet ZZ "Z" iA
+\mathbb{Z} 
+endsnippet
+context math_mode
+snippet zop "Z" iA
+\mathbb{Z}_{0}^{+} 
+endsnippet
+context math_mode
+snippet zom "Z" iA
+\mathbb{Z}_{0}^{-} 
+endsnippet
+context math_mode
+snippet zp "Z" iA
+\mathbb{Z}^{+} 
+endsnippet
+context math_mode
+snippet RR "real" iA
+\mathbb{R} 
+endsnippet
+context math_mode
+snippet rop "R0+" iA
+\mathbb{R}_{0}^{+} 
+endsnippet
+context math_mode
+snippet rom "RO-" iA
+\mathbb{R}_{0}^{-} 
+endsnippet
+context math_mode
+snippet rp "RO-" iA
+\mathbb{R}^{+} 
+endsnippet
+context math_mode
+snippet rm "RO-" iA
+\mathbb{R}^{-} 
+endsnippet
+context math_mode
+snippet NN "n" iA
+\mathbb{N} 
+endsnippet
+context math_mode
+snippet no "n" i
+\mathbb{N} \sub{0} 
+endsnippet
+context math_mode
+snippet AA "forall" iA
+\forall 
+endsnippet
+context math_mode
+snippet EE "geq" iA
+\exists 
+endsnippet
+context math_mode
+snippet ... "ldots" iA
+\ldots 
+endsnippet
+context math_mode
+snippet ;;; "ldots" iA
+\vdots 
+endsnippet

@@ -1,0 +1,117 @@
+global !p
+def math():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+endglobal
+
+snippet inf "Nieuwe wiki in nieuwe map" b
+---
+${1:title: "$2"}
+${3:author: "$4"}
+${5:date: "$6"}
+--- 
+$7
+endsnippet
+
+snippet nT "Nieuwe wiki in nieuwe map" iA
+${1:Item}/$1
+endsnippet
+
+# Snippet voor titels met `b` aan het begin van de lijn
+snippet t "Title #" b
+# ${1:Title}
+endsnippet
+
+snippet tt "Title ##" b
+## ${1:Title}
+endsnippet
+
+snippet ttt "Title ###" b
+### ${1:Title}
+endsnippet
+
+snippet tttt "Title ####" b
+#### ${1:Title}
+endsnippet
+
+# Snippet voor geordende lijsten met `i` (insert)
+snippet oli "Ordered list item" i
+${1:1}. ${2:Item}
+endsnippet
+
+
+
+
+snippet mk "Inline Math Mode" i
+\$${1:math}\$$0
+endsnippet
+
+snippet dm "Display Math Mode" bA
+\$\$
+${1:math}
+\$\$$0
+endsnippet
+
+snippet hh "brackets" iA
+($1)$2
+endsnippet
+
+context "math()"
+snippet sr "Square" iA
+^2$0
+endsnippet
+
+context "math()"
+snippet cb "Cube" iA
+^3$0
+endsnippet
+
+context "math()"
+snippet td "to the power of" iA
+^{$1} $2
+endsnippet
+
+context "math()"
+snippet sum "som" iA
+\sum_{k=$1}^{$2} $3 
+endsnippet
+
+context "math()"
+snippet combin "combination" iA
+\binom{$1}{$2} $3
+endsnippet
+
+context "math()"
+snippet part "partial differentiation" iA
+\frac{\partial $1}{\partial $2} $3
+endsnippet
+
+context "math()"
+snippet vec "vector" iA
+\vec{$1} $2
+endsnippet
+
+context "math()"
+snippet nabll "nabla" iA
+\nabla 
+endsnippet
+
+context "math()"
+snippet gamm "gamma" iA
+\gamma 
+endsnippet
+
+context "math()"
+snippet sqr "square root " iA
+\sqrt{$1} $2
+endsnippet
+
+context "math()"
+snippet ** "multiplication" iA
+\cdot 
+endsnippet
+
+context "math()"
+snippet sub "multiplication" iA
+_{$1} $2
+endsnippet
+

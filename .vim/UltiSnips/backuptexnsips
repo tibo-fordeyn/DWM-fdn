@@ -1,0 +1,1561 @@
+global !p
+def math():
+        return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+def comment():
+        return vim.eval('vimtex#syntax#in_comment()') == '1'
+def env(name):
+        [x,y] = vim.eval("vimtex#env#is_inside('" + name + "')")
+        return x != '0' and y != '0'
+endglobal
+
+context "math()"
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d    ))*)/' "symbol frac" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+########################################################
+# 		TAKING SCREENSHOTS		       #
+########################################################
+global !p
+import os
+import datetime
+
+def create_latex_figure(base_path, scalefac="1"):
+    full_path = os.path.realpath(os.path.expanduser(base_path))
+    files = [os.path.join(full_path, f) for f in os.listdir(full_path) if os.path.isfile(os.path.join(full_path, f))]
+    latest_file = max(files, key=os.path.getctime)
+    original_name = os.path.basename(latest_file)
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    if "_" + timestamp not in original_name:
+        new_filename = f"{os.path.splitext(original_name)[0]}_{timestamp}.png"
+        os.rename(latest_file, os.path.join(full_path, new_filename))
+    else:
+        new_filename = original_name
+
+    figure = f"""
+\\begin{{figure}}[H]
+\\centering
+\\includegraphics[width=\\linewidth/{scalefac}]{{"{os.path.join(full_path, new_filename)}"}}
+\\end{{figure}}
+"""
+    return figure
+endglobal
+
+
+snippet ssp "Screenshot paste" bA
+`!p
+snip.rv = create_latex_figure("~/school/current-subject/images")
+`
+endsnippet
+
+snippet sss "small screenshot" bA
+`!p
+snip.rv = create_latex_figure("~/school/jaar/semester/vak/images", "3")
+`
+endsnippet
+
+########################################################
+#---------------- TEMPLATE	-----------------------#
+snippet template "Basic template" b
+\documentclass{report}
+
+\input{~/school/tex/inputfiles/preamble.tex}
+\input{~/school/tex/inputfiles/macros.tex}
+\input{~/school/tex/inputfiles/letterfonts.tex}
+
+\title{\Huge{${1:Het vak}}\\\\${2: doel van bestand en indien nodig ook semester}}
+\author{\huge{Fordeyn Tibo}}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+
+\newpage% or \cleardoublepage
+% \pdfbookmark[<level>]{<title>}{<dest>}
+
+\pdfbookmark[section]{\contentsname}{toc}
+\tableofcontents
+\thispagestyle{empty}
+\pagebreak
+
+\chapter{${3:naam van eerste hoofdstuk}}
+$4
+
+\end{document}
+Footer
+endsnippet
+
+########################################################
+#----------------- WRITING MODE ------------------#
+###############
+# AFKORTINGEN #
+##############
+snippet cel "" i
+°C 
+endsnippet
+
+snippet lijn "" bA
+\hline 
+endsnippet
+
+snippet vob "" iA
+voorbeeld 
+endsnippet
+
+snippet vow "" iA
+voorwaarde 
+endsnippet
+
+snippet vd "" i
+van de  
+endsnippet
+
+snippet cof "" i
+coëfficiënt  
+endsnippet
+
+snippet vgl "" iA
+vergelijking
+endsnippet
+
+##################################
+# DOCUMENTSTRUCTUUR VERKORTINGEN #
+##################################
+snippet pac "Package" b
+\usepackage[${1:options}]{${2:package}}$0 
+endsnippet
+
+snippet item "Itemize" bA
+\begin{itemize}
+	\item $1
+\end{itemize} 
+endsnippet
+
+snippet enum "Enumerate" bA
+\begin{enumerate}
+	\item $0
+\end{enumerate} 
+endsnippet
+
+snippet fig "Figure environment" b
+\begin{figure}[${1:htpb}]
+	\centering 
+	${2:\includegraphics[width=0.8\textwidth]{$3}}
+	\caption{${4:$3}}
+	\label{fig:${5:${3/\W+/-/g}}}
+\end{figure} 
+endsnippet
+
+snippet atabel "Table environment" b
+\begin{table}[${1:htpb}]
+	\centering
+	\caption{${2:caption}}
+	\label{tab:${3:label}}
+	\begin{tabular}{${5:c}}
+	$0${5/((?<=.)c|l|r)|./(?1: & )/g}
+	\end{tabular}
+\end{table} 
+endsnippet
+
+snippet nitem "adds item" bA
+\item 
+endsnippet
+
+snippet beg "begin{} / end{}" b
+\\begin{$1}
+	$0
+\\end{$1} 
+endsnippet
+
+snippet midnumr "Align" bA
+\begin{align*}
+	${1:${VISUAL}}
+.\end{align*} 
+endsnippet
+
+snippet envr "" bA
+\begin{$1}
+	$2
+\end{$1} 
+endsnippet
+
+snippet hh "voegt andere toe" iA
+($1) 
+endsnippet
+
+snippet kk "voegt andere toe" i
+{$1} 
+endsnippet
+
+snippet vv "voegt andere toe" i
+{$1} 
+endsnippet
+
+snippet nwll "newline" iA
+$1\\\\ $2 
+endsnippet
+
+snippet genummrd "" iA
+\begin{equation}\label{eq:$1}
+	$2
+\end{equation} 
+endsnippet
+
+#########################################
+# 		KADERS			#
+#########################################
+snippet dfin "Definitie kader!" bA
+\dfn{$1}{\akq{
+	$2
+}\akns{
+$3
+}}
+endsnippet
+
+snippet bws "Bewijs kader!" bA
+\prf{ $1 }{
+$2
+}
+endsnippet
+
+snippet lmm "Lemma!" bA
+\lmm{ $1 }{
+	$2
+} 
+endsnippet
+
+snippet crll "Corollarium!" bA
+\cor{ $1 }{
+	$2
+} 
+endsnippet
+
+snippet eigg "Eigenschap!" bA
+\prop{ $1 }{ \akq{
+	$2
+} \akns{ 
+$3
+}}
+endsnippet
+
+snippet stl "Stelling!" bA
+\thm{ $1 }{ \akq{
+	$2
+} \akns{ 
+$3
+}}
+endsnippet
+
+snippet iddd "Idee!" bA
+\idea{ $1 }{
+	$2
+} 
+endsnippet
+
+snippet vrd "Verduidelijking!" bA
+\clar{ $1 }{
+	$2
+} 
+endsnippet
+
+snippet hrr "Herrinnering!" bA
+\rem{ $1 }{ \akq{
+	$2
+} \akns{ 
+$3
+}}
+endsnippet
+
+snippet addd "Addendum!" bA
+\add{$1}{
+	$2
+} 
+endsnippet
+
+snippet vbvr "voorbeeldvraag" bA
+\qs{$1}{ \akq{
+	$2
+}} \akns{
+$3 
+}
+endsnippet
+
+snippet vexvr "voorbeeldvraag" bA
+\exqs{}{ \akq{
+	$1
+}} \akns{
+$2 
+}
+endsnippet
+
+snippet vbe "een voorbeeld" bA
+\ex{$1}{ \akq{
+	$2
+}}\akns{
+$3 
+}
+endsnippet
+
+snippet bsl "besluit" bA
+\begin{Besluit}
+	\begin{itemize}
+		$1
+	\end{itemize}
+\end{Besluit}$4 
+endsnippet
+
+###############################
+#	TEXT STYLES	      #
+###############################
+
+snippet bb "bold text" i
+\textbf{$1}$2 
+endsnippet
+
+###################################################
+#-------------------- MATH MODE ------------------#
+#######################
+# HANDIGE AFKORTINGEN #
+#######################
+
+snippet dm "Math" wA
+\[
+${1:${VISUAL}}
+.\] $0 
+endsnippet
+
+snippet mk "Math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+        snip.rv = ' '
+else:
+        snip.rv = ''
+`$2 
+endsnippet
+
+context "math()"
+snippet tt "" i
+\text{$1} $2 
+endsnippet
+
+context "math()"
+snippet plts "spatie" iA
+\,\,\, $1 
+endsnippet
+
+context "math()"
+snippet sub "subscript" iA
+_{$1} $2 
+endsnippet
+
+context "math()"
+snippet invs "inverse" iA
+^{-1} 
+endsnippet
+
+
+#######################
+# WISKUNDIGE SYMBOLEN #
+#######################
+
+context "math()"
+snippet sam "compisitie of samenstelling" iA
+\circ 
+endsnippet
+
+context "math()"
+snippet cosi "" iA
+\cos{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet sinu "" iA
+\sin{\big( $1 \big)} 
+endsnippet
+
+context "math()"
+snippet seca "" iA
+\sec{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet csca "" iA
+\csc{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet tang "" iA
+\tan{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet expo "" iA
+\exp{($1)} 
+endsnippet
+
+context "math()"
+snippet cosh "" iA
+\cosh{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet sinh "" iA
+\sinh{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet tanh "" iA
+\tanh{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet coth "" iA
+\coth{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet abs "" iA
+|$1| $0
+endsnippet
+
+context "math()"
+snippet maxi "" iA
+\max{$1} $0 
+endsnippet
+
+context "math()"
+snippet mini "" iA
+\min{$1} $0 
+endsnippet
+
+context "math()"
+snippet log "" iA
+\log{\left($1\right)}
+endsnippet
+
+context "math()"
+snippet arkcos "" iA
+\arccos{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet arksin "" iA
+\arcsin{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet arktan "" iA
+\arctan{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet arkcsc "" iA
+\arccsc{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet arksec "" iA
+\arcsec{$1}
+endsnippet
+
+context "math()"
+snippet arccosh "" iA
+\arccosh{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet arcsinh "" iA
+\arcsinh{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet arctanh "" iA
+\arctanh{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet arkcot "" iA
+\arccot{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet arccoth "" iA
+\arccoth{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet nalo "" iA
+\ln{\big( $1 \big)}
+endsnippet
+
+context "math()"
+snippet combi "" iA
+\{$1 \choose $2} $0
+endsnippet
+
+priority 10
+context "math()"
+snippet "hat" "hat" riA
+\hat{${1:${VISUAL}}}$2 
+endsnippet
+
+priority 10
+context "math()"
+snippet "tilde" "hat" riA
+\tilde{${1:${VISUAL}}}$2 
+endsnippet
+
+context "math()"
+snippet SI "SI" iA
+\SI{$1}{$2} 
+endsnippet
+
+context "math()"
+snippet case "cases" wA
+\begin{cases}
+	$1 \\\\
+	$2 \\\\
+\end{cases} 
+endsnippet
+
+snippet <! "normal" iA
+\triangleleft 
+endsnippet
+
+context "math()"
+snippet inn "in " iA
+\in 
+endsnippet
+
+context "math()"
+snippet cc "subset" Ai
+\subset 
+endsnippet
+
+context "math()"
+snippet c= "subset" Ai
+\subseteq 
+endsnippet
+
+context "math()"
+snippet notin "not in " iA
+\notin 
+endsnippet
+
+context "math()"
+snippet evr "~" iA
+\sim 
+endsnippet
+
+context "math()"
+snippet << "<<" iA
+\ll 
+endsnippet
+context "math()"
+snippet >> ">>" iA
+\gg 
+endsnippet
+
+priority 300
+context "math()"
+snippet dint "integral" wA
+\int_{${1:-\infty}}^{${2:+ \infty}} ${3:${VISUAL}} $0 
+endsnippet
+
+context "math()"
+snippet uint "" iA
+\int $1 
+endsnippet
+
+context "math()"
+snippet lint "" iA
+\oint $1 
+endsnippet
+
+priority 300
+context "math()"
+snippet dlint "integral" wA
+\oint_{${1:-\infty}}^{${2:+ \infty}} ${3:${VISUAL}} $0 
+endsnippet
+
+context "math()"
+snippet norm "norm" iA
+||$1|| $2 
+endsnippet
+
+priority 100
+snippet **  "cdot" iA
+\cdot  
+endsnippet
+
+context "math()"
+snippet xx "cross" iA
+\times 
+endsnippet
+
+context "math()"
+snippet rdom "cross" iA
+\text{dom }[$1;$2[ $3 
+endsnippet
+
+context "math()"
+snippet ldom "cross" iA
+\text{dom } ]$1; $2] $3 
+endsnippet
+
+context "math()"
+snippet dom "cross" iA
+\text{dom } [$1; $2] $3 
+endsnippet
+
+context "math()"
+snippet rber "cross" iA
+\text{ber }[$1;$2[ $3 
+endsnippet
+
+context "math()"
+snippet lber "cross" iA
+\text{ber } ]$1; $2] $3 
+endsnippet
+
+context "math()"
+snippet ber "cross" iA
+\text{ber } [$1; $2] $3 
+endsnippet
+
+context "math()"
+snippet <= "leq" iA
+\le 
+endsnippet
+
+context "math()"
+snippet >= "geq" iA
+\ge 
+endsnippet
+
+context "math()"
+snippet rij "mrij" i
+(${1:x}_${2:n})_{${3:$2}\\in${4:\\N}}$0 
+endsnippet
+
+# TEKENS -----------
+context "math()"
+snippet nabl "nabla" iA
+\nabla 
+endsnippet
+
+context "math()"
+snippet pif "\infty" iA
++ \infty 
+endsnippet
+
+context "math()"
+snippet mif "\infty" iA
+- \infty 
+endsnippet
+
+context "math()"
+snippet ift "\infty" iA
+\infty 
+endsnippet
+
+context "math()"
+snippet === "equals" iA
+=  
+endsnippet
+
+context "math()"
+snippet != "equals" iA
+\neq 
+endsnippet
+
+context "math()"
+snippet =a= "equals" iA
+\approx  
+endsnippet
+
+snippet lr "left( right)" i
+\left($1 \right) $0 
+endsnippet
+
+snippet lrs "left| right|" i
+\left| ${1:${VISUAL}} \right| $0 
+endsnippet
+
+snippet lrk "left\{ right\}" i
+\left\\{ ${1:${VISUAL}} \right\\} $0 
+endsnippet
+
+snippet lrh "" iA
+\langle $1 \rangle $2
+endsnippet
+
+snippet lrv "left[ right]" i
+\left[ ${1:${VISUAL}} \right] $0 
+endsnippet
+
+snippet lrd "leftangle rightangle" iA
+\left<${1:${VISUAL}} \right>$0 
+endsnippet
+
+context "math()"
+snippet equi "" iA
+\equiv 
+endsnippet
+
+context "math()"
+snippet dzi "" iA
+\text{ dz}  
+endsnippet
+
+context "math()"
+snippet dri "" iA
+\text{ dr}  
+endsnippet
+
+context "math()"
+snippet dti "" iA
+\text{ dt}  
+endsnippet
+
+context "math()"
+snippet dui "" iA
+\text{ du}  
+endsnippet
+
+context "math()"
+snippet dyi "" iA
+\text{ dy}  
+endsnippet
+
+context "math()"
+snippet dxi "" iA
+\text{ dx} 
+endsnippet
+
+context "math()"
+snippet ovrl "conjugate" iA
+\overline{$1}$0 
+endsnippet
+
+snippet sum "sum" w
+\sum_{${1:n=1}}^{${2:\infty}} ${3:a_n} 
+endsnippet
+
+snippet taylor "taylor" w
+\sum_{${1:k}=${2:0}}^{${3:\infty}} ${4:c_$1} (x-a)^$1 $0 
+endsnippet
+
+context "math()"
+snippet lim "limit" w
+\lim_{${1:n} \to ${2:\infty}}  
+endsnippet
+
+context "math()"
+snippet limsu "limsup" wA
+\limsup_{${1:n} \to ${2:\infty}} $3 
+endsnippet
+
+context "math()"
+snippet vec "vector" iA
+\vec{${1:v}} $2 
+endsnippet
+
+context "math()"
+snippet gve "vector" iA
+\overrightarrow{${1:v}} $2 
+endsnippet
+
+context "math()"
+snippet ive "vector" iA
+\overleftarrow{${1:v}} $2 
+endsnippet
+
+context "math()"
+snippet uni "vector" iA
+\cup 
+endsnippet
+
+context "math()"
+snippet gruni "vector" iA
+\bigcup 
+endsnippet
+
+context "math()"
+snippet doorsn "vector" iA
+\cap 
+endsnippet
+
+context "math()"
+snippet grdoorsn "vector" iA
+\bigcap 
+endsnippet
+
+context "math()"
+snippet off "vector" iA
+\vee 
+endsnippet
+
+context "math()"
+snippet enn "vector" iA
+\wedge 
+endsnippet
+
+context "math()"
+snippet dlv "vector" iA
+\subset 
+endsnippet
+
+context "math()"
+snippet dlv "vector" iA
+\subseteq 
+endsnippet
+
+context "math()"
+snippet dubint "vector" iA
+\iint  
+endsnippet
+
+context "math()"
+snippet tripint "vector" iA
+\iiint  
+endsnippet
+
+snippet part "d/dx" w
+\frac{\partial ${1:V}}{\partial ${2:x}} $0 
+endsnippet
+
+context "math()"
+snippet del "\partial" iA
+\partial 
+endsnippet
+
+context "math()"
+snippet evnr "evenredig met" iA
+\sim 
+endsnippet
+
+context "math()"
+snippet sqrt "\sqrt{}" iA
+\sqrt{${1:${VISUAL}}} 
+endsnippet
+
+context "math()"
+snippet csq "\sqrt{}" iA
+\sqrt[3]{${1:${VISUAL}}}  
+endsnippet
+
+context "math()"
+snippet tsq "\sqrt{}" iA
+\sqrt[$1]{${2:${VISUAL}}} 
+endsnippet
+
+context "math()"
+snippet sr "^2" iA
+^2 
+endsnippet
+
+context "math()"
+snippet cb "^3" iA
+^3 
+endsnippet
+
+context "math()"
+snippet td "to the ... power" iA
+^{$1} 
+endsnippet
+
+context "math()"
+snippet rd "to the ... derrivative" i
+^{($1)}$0 
+endsnippet
+
+context "math()"
+snippet pmm "plus minus" iA
+\pm  
+endsnippet
+
+snippet / "Fraction" i
+\frac{${VISUAL}}{$1}$0 
+endsnippet
+
+context "math()"
+snippet // "Fraction" iA
+\\frac{$1}{$2}$0 
+endsnippet
+
+context "math()"
+snippet iff "iff" Ai
+\iff 
+endsnippet
+
+snippet =< "implied by" Ai
+\impliedby 
+endsnippet
+
+snippet => "implies" Ai
+\implies 
+endsnippet
+
+context "math()"
+snippet conv "" iA
+\ast 
+endsnippet
+
+context "math()"
+snippet four "" iA
+\mathscr{F} \big\\{${1:f(t)}\big\\}${2:(${3:\omega})} $0 
+endsnippet
+
+context "math()"
+snippet Ff "" iA
+\mathscr{F} 
+endsnippet
+
+context "math()"
+snippet ffou "" iA
+\mathscr{F} \big[${1:f(t)}\big](\omega) :&= \int_{- \infty> 
+endsnippet
+
+context "math()"
+snippet lap "" iA
+\mathscr{L} \big\\{ ${1:f(t)}\big\\} $0 
+endsnippet
+
+context "math()"
+snippet fla "" iA
+\mathscr{L} \big[${1:f(t)}\big] &= \int_{0}^{+\infty}  ${2:f(t)} \cdot \exp{(-st)} dt $3 
+endsnippet
+
+context "math()"
+snippet ggd "" i
+\text{ggd}($1) $2 
+endsnippet
+
+context "math()"
+snippet kgv "" i
+\text{kgv}($1) $2 
+endsnippet
+
+context "math()"
+snippet ovrr "" i
+\overset{$1}{$2} $3 
+endsnippet
+
+context "math()"
+snippet ldr "" iA
+\perp 
+endsnippet
+
+# MATRICES --------
+
+#determinant
+context "math()"
+snippet det "" i
+\text{det} \big( $1 \big) $2
+endsnippet
+
+context "math()"
+snippet detee "normal matrix" iA
+\begin{vmatrix}
+	$1 
+\end{vmatrix} $2
+endsnippet
+
+context "math()"
+snippet dettw "normal matrix" iA
+\begin{vmatrix}
+	$1 & $2 \\\
+	$3 & $4 
+\end{vmatrix} $7
+endsnippet
+
+context "math()"
+snippet detdr "normal matrix" iA
+\begin{vmatrix}
+	$1 & $2 & $3\\\
+	$4 & $5 & $6\\\
+	$7 & $8 & $9
+\end{vmatrix} $10
+endsnippet
+
+context "math()"
+snippet detvi "normal matrix" iA
+\begin{vmatrix}
+	$1 & $2 & $3 & $4\\\
+	$5 & $6 & $7 & $8\\\
+	$9 & $10 & $11 & $12 \\\
+	$13 & $14 & $15 & $16
+\end{vmatrix} $17
+endsnippet
+
+# normaal
+
+context "math()"
+snippet eeee "normal matrix" iA
+\begin{pmatrix}
+	$1 
+\end{pmatrix} $2
+endsnippet
+
+context "math()"
+snippet eetw "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 
+\end{pmatrix} $3
+endsnippet
+
+context "math()"
+snippet twee "normal matrix" iA
+\begin{pmatrix}
+	$1 \\\
+	$2 
+\end{pmatrix} $3
+endsnippet
+
+context "math()"
+snippet eedr "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3 
+\end{pmatrix} $4
+endsnippet
+
+context "math()"
+snippet dree "normal matrix" iA
+\begin{pmatrix}
+	$1  \\\
+	$2  \\\
+	$3
+\end{pmatrix} $4
+endsnippet
+
+context "math()"
+snippet viee "normal matrix" iA
+\begin{pmatrix}
+	$1  \\\
+	$2  \\\
+	$3  \\\
+	$4  
+\end{pmatrix} $5
+endsnippet
+
+context "math()"
+snippet eevi "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 $3 $4 
+\end{pmatrix} $5
+endsnippet
+
+context "math()"
+snippet twtw "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 \\\
+	$3 & $4 
+\end{pmatrix} $7
+endsnippet
+
+context "math()"
+snippet twdr "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3 \\\
+	$4 & $5 & $6 
+\end{pmatrix} $7
+endsnippet
+
+context "math()"
+snippet drtw "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 \\\
+	$3 & $4 \\\
+	$5 & $6 
+\end{pmatrix} $7
+endsnippet
+
+context "math()"
+snippet vitw "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 \\\
+	$3 & $4 \\\
+	$5 & $6 \\\
+	$7 & $8
+\end{pmatrix} $9
+endsnippet
+
+context "math()"
+snippet twvi "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3 & $4 \\\
+	$5 & $6 & $7 & $8
+\end{pmatrix} $9
+endsnippet
+
+context "math()"
+snippet drdr "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3\\\
+	$4 & $5 & $6\\\
+	$7 & $8 & $9
+\end{pmatrix} $10
+endsnippet
+
+context "math()"
+snippet drvi "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3 & $4\\\
+	$5 & $6 & $7 & $8\\\
+	$9 & $10 & $11 & $12
+\end{pmatrix} $13
+endsnippet
+
+context "math()"
+snippet vidr "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3\\\
+	$4 & $5 & $6\\\
+	$7 & $8 & $9 \\\
+	$10 & $11 & $12
+\end{pmatrix} $13
+endsnippet
+
+context "math()"
+snippet vivi "normal matrix" iA
+\begin{pmatrix}
+	$1 & $2 & $3 & $4\\\
+	$5 & $6 & $7 & $8\\\
+	$9 & $10 & $11 & $12 \\\
+	$13 & $14 & $15 & $16
+\end{pmatrix} $17
+endsnippet
+
+# ANDERE SYMBOLEN -------
+context "math()"
+snippet ihat "" iA
+\hat{\ihat} 
+endsnippet
+
+context "math()"
+snippet jhat "" iA
+\hat{\jhat} 
+endsnippet
+
+context "math()"
+snippet khat "" iA
+\hat{k}  
+endsnippet
+
+context "math()"
+snippet gam "" iA
+\gamma 
+endsnippet
+
+context "math()"
+snippet gradi "" iA
+\nabla
+endsnippet
+
+context "math()"
+snippet toeg "" iA
+\overline{$1} $2
+endsnippet
+
+context "math()"
+snippet Gam "" iA
+\Gamma 
+endsnippet
+
+context "math()"
+snippet sigg "" iA
+\sigma 
+endsnippet
+
+context "math()"
+snippet Sigg "" iA
+\sigma 
+endsnippet
+
+context "math()"
+snippet delt "" iA
+\delta 
+endsnippet
+
+context "math()"
+snippet Delt "" iA
+\Delta 
+endsnippet
+
+context "math()"
+snippet epp "" iA
+\epsilon 
+endsnippet
+
+context "math()"
+snippet Epp "" iA
+\Epsilon 
+endsnippet
+
+context "math()"
+snippet pii "" iA
+\pi 
+endsnippet
+
+snippet phii "" iA
+\phi 
+endsnippet
+
+context "math()"
+snippet Phii "" iA
+\Phi 
+endsnippet
+
+context "math()"
+snippet thet "" iA
+\theta 
+endsnippet
+
+context "math()"
+snippet Thet "" iA
+\Theta 
+endsnippet
+
+context "math()"
+snippet eta "" iA
+\eta 
+endsnippet
+
+context "math()"
+snippet nuu "" iA
+\nu 
+endsnippet
+
+context "math()"
+snippet alph "" iA
+\alpha 
+endsnippet
+
+context "math()"
+snippet bett "" iA
+\beta 
+endsnippet
+
+context "math()"
+snippet rhoo "" iA
+\rho 
+endsnippet
+
+context "math()"
+snippet Rhoo "" iA
+\Rho 
+endsnippet
+
+context "math()"
+snippet lambd "" iA
+\lambda 
+endsnippet
+
+context "math()"
+snippet omeg "" iA
+\omega 
+endsnippet
+
+context "math()"
+snippet Omeg "" iA
+\Omega 
+endsnippet
+
+context "math()"
+snippet psi "" iA
+\psi 
+endsnippet
+
+context "math()"
+snippet muu "" iA
+\mu 
+endsnippet
+
+context "math()"
+snippet Muu "" iA
+\Mu 
+endsnippet
+
+context "math()"
+snippet tau "" iA
+\tau 
+endsnippet
+
+context "math()"
+snippet Tau "" iA
+\Tau 
+endsnippet
+
+context "math()"
+snippet zett "" iA
+\zeta 
+endsnippet
+
+context "math()"
+snippet antl "" iA
+\# 
+endsnippet
+
+context "math()"
+snippet zondr "setminus" iA
+\setminus 
+endsnippet
+
+priority 200
+context "math()"
+snippet lra "leftrightarrow" iA
+\leftrightarrow 
+endsnippet
+
+context "math()"
+snippet !> "mapsto" iA
+\mapsto 
+endsnippet
+
+priority 100
+context "math()"
+snippet too "to" iA
+\to 
+endsnippet
+
+context "math()"
+snippet lll "l" iA
+\ell 
+endsnippet
+
+context "math()"
+snippet xnn "xn" iA
+x_{n} 
+endsnippet
+
+context "math()"
+snippet ynn "yn" iA
+y_{n} 
+endsnippet
+
+context "math()"
+snippet ctil "ctilde" iA
+\widetilde{C} $1 
+endsnippet
+
+context "math()"
+snippet atil "ctilde" iA
+\widetilde{A} $1 
+endsnippet
+
+context "math()"
+snippet btil "ctilde" iA
+\widetilde{B} $1 
+endsnippet
+
+context "math()"
+snippet cov "overline" iA
+\overline{C} 
+endsnippet
+
+# context "math()"
+# snippet bov "overline" iA
+#\overline{B} 
+#endsnippet
+
+context "math()"
+snippet aov "overline" iA
+\overline{A} 
+endsnippet
+
+context "math()"
+snippet xii "xi" iA
+x_{i} 
+endsnippet
+
+context "math()"
+snippet yii "yi" iA
+y_{i} 
+endsnippet
+
+context "math()"
+snippet sun "sub 0" iA
+_{0}  
+endsnippet
+
+context "math()"
+snippet sue "sub 1" iA
+_{1}  
+endsnippet
+
+context "math()"
+snippet sut "sub 1" iA
+_{2}  
+endsnippet
+
+context "math()"
+snippet sud "sub 3" iA
+_{3}  
+endsnippet
+
+context "math()"
+snippet suv "sub 3" iA
+_{4}  
+endsnippet
+
+context "math()"
+snippet sui "sub 3" iA
+_{i}  
+endsnippet
+
+context "math()"
+snippet ledg "emptyset" iA
+\O 
+endsnippet
+
+context "math()"
+snippet CC "" iA
+\mathbb{C} 
+endsnippet
+
+context "math()"
+snippet QQ "Q" iA
+\mathbb{Q} 
+endsnippet
+
+context "math()"
+snippet qom "qom" iA
+\mathbb{Q}_{0}^{-} 
+endsnippet
+
+context "math()"
+snippet qop "qop" iA
+\mathbb{Q}_{0}^{+} 
+endsnippet
+
+context "math()"
+snippet qp "qp" iA
+\mathbb{Q}^{+} 
+endsnippet
+
+context "math()"
+snippet qm "qm" iA
+\mathbb{Q}^{-} 
+endsnippet
+
+context "math()"
+snippet ZZ "Z" iA
+\mathbb{Z} 
+endsnippet
+
+context "math()"
+snippet zop "Z" iA
+\mathbb{Z}_{0}^{+} 
+endsnippet
+
+context "math()"
+snippet zom "Z" iA
+\mathbb{Z}_{0}^{-} 
+endsnippet
+
+context "math()"
+snippet zp "Z" iA
+\mathbb{Z}^{+} 
+endsnippet
+
+context "math()"
+snippet RR "real" iA
+\mathbb{R} 
+endsnippet
+
+context "math()"
+snippet rop "R0+" iA
+\mathbb{R}_{0}^{+} 
+endsnippet
+
+context "math()"
+snippet rom "RO-" iA
+\mathbb{R}_{0}^{-} 
+endsnippet
+
+context "math()"
+snippet Rp "RO-" iA
+\mathbb{R}^{+} 
+endsnippet
+
+context "math()"
+snippet rm "RO-" iA
+\mathbb{R}^{-} 
+endsnippet
+
+context "math()"
+snippet NN "n" iA
+\mathbb{N} 
+endsnippet
+
+context "math()"
+snippet no "n" i
+\mathbb{N} \sub{0} 
+endsnippet
+
+context "math()"
+snippet AA "forall" iA
+\forall 
+endsnippet
+
+context "math()"
+snippet EE "geq" iA
+\exists 
+endsnippet
+
+priority 100
+context "math()"
+snippet ... "ldots" iA
+\ldots 
+endsnippet
+
+priority 100
+context "math()"
+snippet ;;; "ldots" iA
+\vdots 
+endsnippet
+
+# INKSCAPE --------
+
+snippet tm "Tikz node" w
+\node[$5] (${1/[^0-9a-zA-Z]//g}${2}) ${3:at (${4:0,0}) }{$>
+$0 
+endsnippet
+
+snippet plot "Plot" w
+\begin{figure}[$1]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			xmin= ${2:-10}, xmax= ${3:10},
+			ymin= ${4:-10}, ymax = ${5:10},
+			axis lines = middle,
+		]
+			\addplot[domain=$2:$3, samples=${6>
+		\end{axis}
+	\end{tikzpicture}
+	\caption{$8}
+	\label{${9:$8}}
+\end{figure} 
+endsnippet
+
+
+
+# ANDERE DINGEN WAARVAN IK HET NUT NIET SNAP --------------------------------
+
+snippet bigfun "Big function" iA
+\begin{align*}context "math()"
+	$4 &\longmapsto $1($4) = $0
+.\end{align*} 
+endsnippet
+
+snippet cvec "column vector" iA
+\begin{pmatrix} ${1:x}_${2:1}\\\\ \vdots\\\\ $1_${2:n} \en> 
+endsnippet
+
+
+
+

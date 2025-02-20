@@ -1,0 +1,97 @@
+# Deze snippets horen bij mijn persoonlijke blog!!
+
+snippet pargr "paragraaf" iA
+<p> 
+	$1 
+</p>
+endsnippet
+
+snippet markk "markeren - inline code" iA
+<span class="highl">$1</span>$0
+endsnippet
+
+snippet tmarr "markeren - text" iA
+<span class="marked-text">$1</span>$0
+endsnippet
+
+snippet undd "onderlijnen" iA
+<span class="underl">$1</span>$0
+endsnippet
+
+snippet linkk "hreffen" iA
+<a href="$1" target="_blank">$2</a>$0
+endsnippet
+
+# Lijsten
+snippet ulll "unordend list" iA
+<ul>
+	<li> $1 </li>
+</ul>
+endsnippet
+
+snippet olll "ordend list" iA
+<ol>
+	<li> $1 </li>
+</ol>
+endsnippet
+ 
+# Codeblokken
+snippet coddbash "codeblok" iA
+<pre><code class="language-bash">
+	$1
+</code></pre>
+endsnippet
+snippet coddvim "codeblok" iA
+<pre><code class="language-vim">
+	$1
+</code></pre> $0
+endsnippet
+snippet coddpython "codeblok" iA
+<pre><code class="language-python">
+	$1
+</code></pre>
+endsnippet
+snippet coddlat "codeblok" iA
+<pre><code class="language-latex">
+	$1
+</code></pre>
+endsnippet
+
+
+snippet templl "template" bA
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/images/pfp.jpeg" type="image/jpeg">
+    <title>$1</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/article.css">
+    <link rel="stylesheet" href="/static/syntax/prism.css">
+
+</head>
+<body>
+<div id="toc" class="toc-container"></div>
+    <div class="blog-container">
+        <div class="blog-header">
+            <a href="/" class="home-link"><i class="fas fa-arrow-left"></i> Home Page</a>
+            <span class="blog-info"> ${2:date} | ${3:reading time}</span>
+        </div>
+        <hr>
+        <h1>$1</h1>
+
+$4
+
+    <script src="/static/syntax/prism.js"></script>
+    <script src="/static/js/toc.js"></script>
+</body>
+</html>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.display = 'block';
+});
+</script>
+endsnippet
+

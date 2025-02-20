@@ -1,0 +1,13 @@
+static const Block blocks[] = {
+    /*Icon*/    /*Command*/                                                                 /*Update Interval*/    /*Update Signal*/
+    {"\uf017 ", "date '+%a %d %b %Y %H:%M:%S'",                                              1,                     0},
+//	{"",	"sb-volume",	0,	10},
+//	{"",	"sb-battery",	5,	3},
+//	{"",	"sb-clock",	60,	1},
+    {"\uf240 ", "acpi -b | awk -F', ' '{print $2}'",                                         30,                    0},
+    {"",        "cat /home/dyntif/suckless/dwmblocks/whitespace.txt",                        5,                     0}
+};
+
+static char delim[] = " | ";
+static unsigned int delimLen = 5;
+

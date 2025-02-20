@@ -1,0 +1,23 @@
+Deze patch heb ik zelf gevonden! 
+
+
+diff --git a/dwm.c b/dwm.c
+index abcdefg..hijklmn 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -2255,12 +2255,9 @@ void
+ updatebarpos(Monitor *m)
+ {
+     m->wy = m->my;
+     m->wh = m->mh;
+     if (m->showbar) {
+-        m->wh = m->wh - vertpad - bh;
+-        m->by = m->topbar ? m->wy : m->wy + m->wh + vertpad;
+-        m->wy = m->topbar ? m->wy + bh + vp : m->wy;
++        m->wh -= bh;
++        if (m->topbar)
++            m->wy += bh;
+     } else
+-        m->by = -bh - vp;
++        m->by = -bh;
+ }

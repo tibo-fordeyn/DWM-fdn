@@ -1,0 +1,194 @@
+" Setting nocompatible and filetype off before plugins
+set nocompatible
+filetype plugin on
+
+" Stops useless whitespace in its tracks
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+function! XTermPasteBegin()
+	  set pastetoggle=<Esc>[201~
+	  set paste
+	  return ""
+endfunction
+
+
+call plug#begin('~/.vim/plugged')
+" Plugins
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-gitgutter'
+" Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'vim-scripts/vim-auto-save'
+Plug 'SirVer/ultisnips' 
+" Plug 'iamcco/markdown-preview.nvim'
+Plug 'honza/vim-snippets'
+Plug 'KeitaNakamura/tex-conceal.vim'
+Plug 'lervag/vimtex' 
+Plug 'godlygeek/tabular'
+" Plug 'plasticoy/vim-markdown' 
+Plug 'dylanaraps/wal.vim'
+" Plug 'tmhedberg/SimpylFold'
+" Plug 'vim-scripts/indentpython.vim'
+Plug 'arcticicestudio/nord-vim' " Added nord colorscheme
+Plug 'vimwiki/vimwiki'
+" Plug 'prurigro/vim-markdown-concealed'
+Plug 'jmckiern/vim-shoot', { 'do': '\"./install.py\" geckodriver' }
+Plug 'AlphaTechnolog/pywal.nvim', { 'as': 'pywal'  }
+call plug#end()
+
+" Basic Settings
+set smartcase
+set ignorecase
+set encoding=utf-8
+set shortmess+=F
+set fileformat=unix
+set incsearch
+set number relativenumber
+set background=dark
+set foldmethod=manual
+" set viminfo += "folds"
+set foldlevel=99
+set runtimepath^=~/.config/vim
+set packpath^=~/.config/vim
+au BufWinLeave * mkview
+"au BufWinEnter * silent loadview
+syntax on
+highlight StatusLine guifg=#050298
+" set guifont=PowerlineSymbols:h12
+" the separator used on the left side
+let g:airline_left_sep=''
+" the separator used on the right side 
+let g:airline_right_sep=''
+
+  " powerline symbols
+let g:airline_symbols = {}
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.colnr = ' ℅:'
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ' :'
+let g:airline_symbols.maxlinenr = '☰ '
+let g:airline_symbols.dirty='⚡'
+let g:airline_symbols.linenr = ' Nr:'
+let g:airline_symbols.linenr = ' Nr:'
+colorscheme wal
+
+" auto remember where I left off
+augroup vimStartup | au!
+    autocmd BufRead * call setpos('.', getpos("'\""))
+augroup end
+
+" Always show line numbers
+set number
+" Highlight the line of the cursor
+set cursorline
+hi CursorLineNr ctermbg=lightblue ctermfg=black cterm=bold
+" Line below tries to make cursos line transparent, doesn't seem to work
+" hi CursorLine ctermbg=NONE cterm=NONE
+
+
+" Source remappings
+if filereadable(expand("~/.vim/extra/mappings.vim"))
+    source ~/.vim/extra/mappings.vim
+endif
+" Source markdown conceal
+augroup markdownSetup
+    autocmd!
+    autocmd FileType markdown if filereadable(expand("~/.vim/extra/markconc.vim")) | source ~/.vim/extra/mappings.vim | endif
+augroup END
+
+
+" Snippets configuration
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsSnippetDirectories=["UltiSnips","Snippets"]
+let g:UltiSnipsEditSplit="vertical"
+" Markdown snippet configuration
+autocmd FileType vimwiki UltiSnipsAddFiletypes markdown
+au filetype vimwiki silent! iunmap <buffer> <Tab>
+autocmd FileType vimwiki set filetype=markdown
+" Markdown math mode
+let g:vim_markdown_math = 1
+
+
+" Tex configuration
+set conceallevel=1
+let g:tex_conceal='abdmg'
+let g:Tex_DefaultTargetFormat='pdf'
+let g:vimtex_view_enabled=1
+let g:vimtex_view_automatic=1
+let g:vimtex_view_general_viewer='zathura'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+let g:vimtex_compiler_latexmk = { 'callback' : 0 }
+" voor mijn vimwiki
+let g:vimwiki_list = [
+\ {
+\   'path': '~/persoonlijk/superfiles/kleiner/dagboek/index.md',
+\   'index': 'index',
+\   'syntax':'markdown',
+\   'ext': '.md',
+\   'auto_export': 0,
+\   'template_path': '~/persoonlijk/superfiles/',
+\   'template_default': 'default',
+\   'nested_syntaxes': {'python': 'python', 'bash': 'sh'},
+\   'diary_rel_path': 'journal/',
+\   'diary_index': 'index'
+\ }
+\ ]
+
+" Automatische commando's voor .tex bestanden
+" Geen melding bij starten van continue modus
+" autocmd FileType tex let g:vimtex_compiler_latexmk = {'continuous' : 1}
+
+" Automatische commando's voor .tex bestanden
+augroup tex
+    autocmd!
+    " AutoSave inschakelen en foutmeldingen onderdrukken
+    autocmd FileType tex silent! AutoSave
+    " Controleer of het bestand bestaat en inhoud heeft voordat VimTeX wordt gestart
+    autocmd BufReadPost,BufWritePost ~/school/current-subject/nota/notas.tex call s:StartVimtexCompile()
+augroup END
+
+autocmd BufReadPost ~/school/current-subject/nota/notas.tex silent! execute '!~/.local/bin/inkwatch_silent.sh >/dev/null 2>&1 &'
+
+function! s:StartVimtexCompile()
+    if filereadable(expand('%')) && line('$') > 1
+        silent! VimtexCompile
+    endif
+endfunction
+
+" viminfo locatie
+set viminfo+=n~/.local/state/vim/viminfo
+
+
+" Toggle function to enable/disable conceal
+function! ToggleConceal()
+    if &conceallevel == 1
+        set conceallevel=0
+        echo "Conceal disabled"
+    else
+        set conceallevel=1
+        echo "Conceal enabled"
+    endif
+endfunction
+" Map leader + tc to toggle conceal
+nnoremap <leader>tc :call ToggleConceal()<CR>
+" Autocommand to load conceal settings for .tex files
+augroup MyConcealPlugin
+    autocmd!
+    autocmd FileType tex source ~/.vim/extra/myconc.vim
+augroup END
+
+
+
