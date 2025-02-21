@@ -15,4 +15,4 @@ I wrote a script that, mainly just by using wal and some patches, gives you a me
 
 There's a lot of other functionality in the scripts that might also be helpful. The jonaburg/picom configuration really makes it look smooth.
     
-    My ranger configuration is also quite unique, I removed the top and bottol widgets and modified a script for the nicer icons.
+My ranger configuration is also quite unique, I removed the top and bottol widgets and modified a script for the nicer icons.
